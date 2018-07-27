@@ -21,12 +21,15 @@ public:
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float Speed;
+
 	UPROPERTY(BlueprintReadWrite)
 	bool Open;
 	UPROPERTY(BlueprintReadWrite)
 	bool Moving;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	bool OpenDirectionReverse;
+	UPROPERTY()
+	float InitialYaw = 0.1234f;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

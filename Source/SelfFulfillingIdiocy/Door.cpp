@@ -28,14 +28,21 @@ void ADoor::Tick(float DeltaTime)
 	if (Open) Direction *= -1;
 	if (OpenDirectionReverse) Direction *= -1;
 
+	if(InitialYaw == 0.1234f) InitialYaw = GetActorRotation().Yaw;
+
 	if (Moving) {
+		FString TheFloatStr = FString::SanitizeFloat(GetActorRotation().Yaw);
+		GEngine->AddOnScreenDebugMessage(-1, 1.0, FColor::Red, *TheFloatStr);
+		FString TheFloatStr2 = FString::SanitizeFloat(GetActorRotation().Yaw + Speed * Direction);
+		GEngine->AddOnScreenDebugMessage(-1, 1.0, FColor::Red, *TheFloatStr2);
+
 		FRotator rotation = FRotator(0.f, Speed*Direction, 0.f);
 		AddActorLocalRotation(rotation);
 
-		FString TheFloatStr = FString::SanitizeFloat(GetActorRotation().Yaw);
-		GEngine->AddOnScreenDebugMessage(-1, 1.0, FColor::Red, *TheFloatStr);
+		FString TheFloatStr3 = FString::SanitizeFloat(GetActorRotation().Yaw);
+		GEngine->AddOnScreenDebugMessage(-1, 1.0, FColor::Red, *TheFloatStr3);
 
-		if (GetActorRotation().Yaw > -89.f || GetActorRotation().Yaw < 89.f && !Open) {
+		if ((GetActorRotation().Yaw>InitialYaw +91) && !Open) {
 			Open = true;
 			Moving = false;
 
@@ -44,19 +51,20 @@ void ADoor::Tick(float DeltaTime)
 			if (Open) Direction *= -1;
 			if (OpenDirectionReverse) Direction *= -1;
 
-			float Yaw = (90.f * Direction * -1) - 180.f;
-			if (Yaw < -180)Yaw += 360;
+			float Yaw;
+			if (GetActorRotation().Yaw > InitialYaw + 91) Yaw = InitialYaw + 90;
 
-			SetActorRotation(FRotator(0.f, (90.f * Direction * -1) - 180.f, 0.f));
+			while (Yaw < -180) Yaw += 360;
+
+			SetActorRotation(FRotator(0.f, Yaw, 0.f));
 		}
-		if ((GetActorRotation().Yaw < -179.f && GetActorRotation().Yaw > -181.f) || (GetActorRotation().Yaw > 179.f && GetActorRotation().Yaw < 181.f) && Open) {
+		if ((GetActorRotation().Yaw>InitialYaw -1) && (GetActorRotation().Yaw<InitialYaw +1) && Open) {
 			Open = false;
 			Moving = false;
 
-			SetActorRotation(FRotator(0.f, -180.f, 0.f));
+			SetActorRotation(FRotator(0.f, InitialYaw, 0.f));
 		}
 	}
 }
 void ADoor::OnLookAt_Implementation() {}
 void ADoor::OnLookAway_Implementation() {}
-
