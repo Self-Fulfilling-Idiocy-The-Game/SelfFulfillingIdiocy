@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Lookable.h"
+#include "GameFramework/Actor.h"
 #include "GlowActor.generated.h"
 
 UCLASS()
-class SELFFULFILLINGIDIOCY_API AGlowActor : public ALookable
+class SELFFULFILLINGIDIOCY_API AGlowActor : public AActor
 {
 	GENERATED_BODY()
 	
@@ -23,6 +23,7 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-	virtual void OnLookAt_Implementation() override;
-	virtual void OnLookAway_Implementation() override;
+
+	
+	
 };

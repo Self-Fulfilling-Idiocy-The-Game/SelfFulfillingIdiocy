@@ -24,5 +24,4 @@ void AGlowActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-void AGlowActor::OnLookAt_Implementation() {}
-void AGlowActor::OnLookAway_Implementation() {}
+
