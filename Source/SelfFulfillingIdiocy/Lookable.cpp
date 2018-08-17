@@ -27,4 +27,3 @@ void ALookable::Tick(float DeltaTime)
 }
 void ALookable::OnLookAt_Implementation() {};
 void ALookable::OnLookAway_Implementation() {};
-

@@ -28,5 +28,4 @@ public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "Lookable")
 	void OnLookAway();
 	virtual void OnLookAway_Implementation();
-	
 };
